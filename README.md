@@ -1,5 +1,5 @@
 # Walk With Me
-
+<pre>
 In response to the recent elections, I attended an action planning meeting hosted by (among others) New School Politics professor Deva Woodly.  
 
   Following up on the Nov 10th talk, it was expressed that there would be interest in an app which matched people who want
@@ -25,3 +25,4 @@ Backend:
   Google Apps Script with an instrumented spreadsheet to function as a DB store.
   
 Authentication is performed by Google/NS Radius 
+</pre>
