@@ -1,0 +1,237 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <style><?!= include('main.css'); ?></style>
+    <style><?!= include('custom.css'); ?></style>
+    <style><?!= include('divtable.css'); ?></style>
+    <style><?!= include('jquery.modal.min.css'); ?></style>
+    <style><?!= include('jquery.rateyo.css'); ?></style>
+    <style><?!= include('jquery.filthypillow.css'); ?></style>
+    
+    <!--
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="custom.css">
+    <link rel="stylesheet" type="text/css" href="divtable.css">
+    <link rel="stylesheet" type="text/css" href="libs/jquery.modal.min.css">
+    <link rel="stylesheet" type="text/css" href="libs/jquery.rateyo.css">
+    <link rel="stylesheet" type="text/css" href="libs/dtPicker/jquery.filthypillow.css">
+    -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4o0H4-Hzn_AR3Xiwmn6pT4LsQv384YYc&libraries=places"></script>
+
+    <!-- Only worked if i put the script tag in each file manually -->
+    <?!= include('jquery.modal.min.js'); ?>
+    <?!= include('jquery.rateyo.min.js'); ?>
+    <?!= include('moment.js'); ?>
+    <?!= include('jquery.filthypillow.min.js'); ?> 
+    <?!= include('jquery.geocomplete.js'); ?> 
+    
+    <!--
+    <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/jquery.modal.min.js"></script>
+    <script type="text/javascript" src="libs/jquery.rateyo.min.js"></script>
+    <script type="text/javascript" src="libs/dtPicker/moment.js"></script>
+    <script type="text/javascript" src="libs/dtPicker/jquery.filthypillow.min.js"></script>
+    -->
+  </head>
+  <body>
+    
+    <div class="modal_win" id="modal_help">
+      <p>This is the help copy explanation how to use app and emergency numbers campus numbers and
+  support infrastructure etc.</p>
+  
+    </div>
+
+    <div class="modal_win" id="modal_map">
+    
+      <div> 
+        <!-- <form>
+          <input class="divBox" id="geocomplete" type="text" placeholder="Type in an address" size="60" />
+        </form>
+        
+        <div class="map_canvas" style="width: 400px; height: 300px;"></div>
+
+               <pre id="logger">Log:</pre> -->
+        
+        <input class="divBox" id="map_address" placeholder="Enter Address">
+        <div class="appButton" id=b_map_search> Search </div>
+        <div class="appButton" id=b_map_select> Select </div>
+        <a href="#" id='map_close' rel="modal:close"></a>
+      </div>
+      <br/>
+      <div><img class="divBox" id="map_pic" src="https://maps.google.com/maps/api/staticmap?sensor=false&size=400x300"></div>
+    </div> 
+    
+    <div class="modal_win" id="modal_dyn">
+    </div>
+    
+
+    <div class="flex-container">
+      <header>
+        <div class="sansserif" id="b_title">
+          <img class="mainPix" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRuXHHH3j2UfbbtS44nOnsn2iBbboAQ1PBkpE4MqCIGkTbFvPyw" alt="walking">
+          Walk With Me
+          <info>
+            <img class="mainPix" id="b_help" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTSJTapJnLzon135kCKFAGnW0WhqAPmyrOQvVTkDUmc0M-lkFWP" alt="help info">
+          </info>
+        </div>
+      </header>
+
+      <!--
+      <nav class="nav">
+        <ul>
+          <li><a href="#">nav opt 1</a></li>
+          <li><a href="#">nav opt 2<</a></li>
+          <li><a href="#">nav opt 3<</a></li>
+        </ul>
+      </nav>
+      -->
+    
+      <main class="main">
+        
+<div class="content" id="status" > 
+  <div class="text">
+    These are the people needing the most immediate help:
+  </div>
+
+  <!-- <div class="appButton" id=b_status_req> Request Help </div> -->
+  
+  <select class="divBox" id="navigate" style="float:right; margin-top: 0px; padding:4px;">
+    <option value="main">Go to:</option>
+    <option value="req">Request Submission</option>
+    <option value="ofb">Offers and Feedback</option>
+  </select>
+
+  <div class="appButton" id=b_status_vnext> Next </div>
+  <div class="appButton" id=b_status_vprev> Prev </div>
+
+  <br/> <br/>
+  
+  <center>        
+
+  <div class="divTable">
+    <div class="divTableBody" id="statusTable">
+       Populating Table (0)
+    </div>
+  </div>
+  </center>
+</div>
+
+<div class="content" id="request">
+  <div id="request_leadin"></div>
+  <center>
+    <div id="req_div_bounding"> 
+      <div class="input-group">
+        <input class="divBox" id="timeDate" placeholder="Enter time and date"/>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+      </div>
+      
+      <br><br><br>
+      <div> 
+        <input class="divBox" id="loc_start" placeholder="Start">
+        <input class="divBox" id="loc_dest" placeholder="Destination">
+      </div>
+      
+      <textarea class="divBox" id="req_notes" rows="7" cols="60" placeholder="Enter any special notes here."></textarea>
+    </div>
+  </center>
+  <center><div class="appButton" id=b_request_sub style="margin-top:10px;"> Submit </div></center>
+</div>
+
+<div class="content" id="offers">
+  This is your current offers and feedback dashboard:<br>
+  <br>
+  
+  <center>
+  <div class="divTable">
+    <div class="divTableBody" id="offerFromTable">
+      Populating Table (3)
+    </div>
+  </div>
+  
+  <div class="divTable" style="margin-top: 20px;">
+    <div class="divTableBody" id="offerForTable">
+      Populating Table (2)
+    </div>
+  </div>
+  
+  <div class="divTable" style="margin-top: 20px;">
+    <div class="divTableBody" id="feedbackTable">
+      Populating Table (1)
+    </div>
+  </div>
+  </center>
+</div>
+
+<!--
+<div class="content" id="confirm" >
+  <center>
+    <div class="text">
+      <p>By clicking below you confirm that you are currently with NAME. Once you click <br/>
+         they need to confirm having also met you within 10min. After that have a safe <br/>
+         journey. Don't forget to give feedback on your experience once you are done! <br/> </p>
+    </div>
+    <br/>
+    <div class="appButton">
+      I am with NAME now!
+    </div>
+  </center>
+</div>
+
+<div class="content" id="feedback" >
+  Please provide feedback on your confirmed trips: (Last 7 days only)
+  <br/> <br/>
+  
+  <center>
+  <div class="divTable">
+    <div class="divTableBody">
+
+      <div class="divTableRow">
+        <div class="divTableCell">
+          &nbsp;1.21.16
+        </div>
+
+        <div class="divTableCell">
+          &nbsp;1st lst
+        </div>
+
+        <div class="divTableCell">
+          <div id="rateYo2"></div>
+        </div>
+      </div>
+      
+      <div class="divTableRow">
+        <div class="divTableCell">
+          &nbsp;1.21.16
+        </div>
+
+        <div class="divTableCell">
+          &nbsp;1st lst
+        </div>
+
+        <div class="divTableCell" >
+          <div id="rateYo3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </center>
+</div>
+-->
+      </main>
+
+    
+    <footer>Copyright 2016 Michael Wolf</footer>
+    </div>
+    
+    <!--
+    <div class="appButton" id="b_offers"> offers </div> 
+    <div class="appButton" id="b_confirm"> confirm </div>
+    <div class="appButton" id="b_feedback"> feedback </div> 
+    -->
+    
+        <?!= include('client_scripts.js'); ?>
+  </body>
+</html>
+
