@@ -8,7 +8,7 @@ matched people who want to travel to a location (but feel unsafe) with those who
 them.  I took time in the week following to research such an app and, not finding a suitable match, 
 to write one.
  
-  My app is mostly fleshed out by now with the exeception of a mobile interface. Provided are 
+  My app is mostly fleshed out by now with the exeception of a mobile interface. Provided are JPEG
 screenshots of the current revision.  We are currently in the initial stages of a university wide 
 deployment and buildout of a support community.  Beta testing should begin in the next semester.
 
